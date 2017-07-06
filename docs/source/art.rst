@@ -1,0 +1,3 @@
+Adaptive Resonance Theory
+=========================
+
