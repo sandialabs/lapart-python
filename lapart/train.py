@@ -13,19 +13,11 @@ from art import ART
 
 def norm(data,ma,mi):
 
-	"""
-    
-    Returns:
-    ----------
-    data : matrix
-    ma : maxtrix
-    """ 
-
-    tnorm = np.ones((len(data),len(data[0])))
-    for i in range(len(data)):
-        for j in range(len(data[0])):
-            tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
-    return tnorm
+	tnorm = np.ones((len(data),len(data[0])))
+	for i in range(len(data)):
+		for j in range(len(data[0])):
+			tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
+	return tnorm
     
 def dnorm(data,ma,mi):
     dnorm = np.ones((len(data),len(data[0])))
@@ -288,11 +280,24 @@ class train:
 def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder='',update_templates=True):
 
 	"""
-	Parameters
-	----------
-	xA : matrix
-	xB " maxtrix
-	""" 
+	Train LAPART Algorithm
+	
+	:param xA:		A-Side Input Matrix (float)
+	:param xB: 		B-Side Input Matrix (float)
+	:param rhoA:	A-Side free parameter (float)
+	:param rhoB:	B-Side free parameter (float)
+	:param beta:	Learning rate free parameter (float)
+	:param alpha:	Choice Parameter (float)
+	:param nep:		Number of epochs (integer)
+	:param memory_folder:	Folder to store memory (string)
+	:param update_templates: Command to update or create new templates (boolean) 
+	
+	:return TA:	A-Side template matrix (float)
+	:return TB:	B-Side template matrix (float)
+	:return L: Associator matrix (float)
+	:return elapsed_time: Seconds to complete training (float) 
+	"""
+
 	
 	start_time = time.time()
 	
@@ -313,8 +318,3 @@ def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_fo
 	elapsed_time = time.time() - start_time
 	
 	return TA,TB,L,elapsed_time
-
-
-
-if __name__ == '__main__':
-    lapArt_train()

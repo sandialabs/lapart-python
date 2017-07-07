@@ -119,6 +119,24 @@ class test:
 
 def lapArt_test(xA,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder=''):
 
+	"""
+	Test LAPART Algorithm
+	
+	:param xA:		A-Side Input Matrix (float)
+	:param rhoA:	A-Side free parameter (float)
+	:param rhoB:	B-Side free parameter (float)
+	:param beta:	Learning rate free parameter (float)
+	:param alpha:	Choice Parameter (float)
+	:param nep:		Number of epochs (integer)
+	:param memory_folder:	Folder to store memory (string)
+	
+	:return CB:	B-Side categories vector (float)
+	:return TB:	B-Side template matrix (float)
+	:return TBn: B-Side normalized template matrix (float)
+	:return df: Pandas dataframe - A & B categories, A-Side inputs
+	:return elapsed_time: Seconds to complete training (float) 
+	"""
+
 	start_time = time.time()
 
 	TA,TB = pd.read_csv('%s/TA.csv'%memory_folder).as_matrix(),pd.read_csv('%s/TB.csv'%memory_folder).as_matrix()
@@ -133,9 +151,3 @@ def lapArt_test(xA,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder
 	elapsed_time = time.time() - start_time
 	
 	return CB,TB,TBn,df,elapsed_time
-
-
-if __name__ == '__main__':
-    lapArt_test()
-
-
