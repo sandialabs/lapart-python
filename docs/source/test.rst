@@ -1,4 +1,6 @@
-Adaptive Resonance Theory
-=========================
+=================
+Testing Algorithm
+=================
 
-
+.. automodule:: lapart.test
+	:members:

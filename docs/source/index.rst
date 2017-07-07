@@ -8,6 +8,7 @@ lapart-python documentation
    art
    overview
    train
+   test
    license
 
 		

@@ -2,6 +2,7 @@
 Training Algorithm
 ==================
 
-:class:`~lapart.train.lapart_train`
+.. automodule:: lapart.train
+	:members:
 
 
