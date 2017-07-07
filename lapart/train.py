@@ -11,11 +11,11 @@ import numpy as np
 import pandas as pd
 from art import ART
 
-def norm(data,ma,mi):
+def norm1(data,ma,mi):
 
 	"""
     
-    Parameters
+    Returns:
     ----------
     data : matrix
     ma : maxtrix
