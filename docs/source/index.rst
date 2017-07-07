@@ -5,11 +5,8 @@ lapart-python documentation
    :maxdepth: 2
    :caption: Contents:
    
-   art
    overview
-   train
-   test
-   license
+
 		
 
 Indices and tables
