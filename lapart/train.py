@@ -151,16 +151,13 @@ class train:
 		return T
 
 	def lapart_train(self,xA,xB):
-	
-		"""
-    
-    	Parameters
-    	----------
-    	xA : matrix
-    	xB " maxtrix
-    	""" 
-	
 		
+		"""
+		Parameters
+		----------
+		xA : matrix
+		xB " maxtrix
+		""" 
 		if self.update == False:
 			''' Set first template as first input '''
 			self.TA[:,0] = self.IA[:,0]
