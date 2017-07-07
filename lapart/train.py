@@ -12,6 +12,15 @@ import pandas as pd
 from art import ART
 
 def norm(data,ma,mi):
+
+	"""
+    
+    Parameters
+    ----------
+    data : matrix
+    ma : maxtrix
+    """ 
+
     tnorm = np.ones((len(data),len(data[0])))
     for i in range(len(data)):
         for j in range(len(data[0])):
@@ -142,6 +151,15 @@ class train:
 		return T
 
 	def lapart_train(self,xA,xB):
+	
+		"""
+    
+    	Parameters
+    	----------
+    	xA : matrix
+    	xB " maxtrix
+    	""" 
+	
 		
 		if self.update == False:
 			''' Set first template as first input '''
@@ -271,6 +289,14 @@ class train:
 				
 
 def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder='',update_templates=True):
+	
+	"""
+    
+    Parameters
+    ----------
+    xA : matrix
+    xB " maxtrix
+    """ 
 	
 	start_time = time.time()
 	

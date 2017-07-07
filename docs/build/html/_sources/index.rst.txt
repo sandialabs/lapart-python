@@ -7,6 +7,8 @@ lapart-python documentation
    
    art
    overview
+   train
+   license
 
 		
 
