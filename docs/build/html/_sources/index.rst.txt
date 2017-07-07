@@ -5,6 +5,7 @@ lapart-python documentation
    :maxdepth: 2
    :caption: Contents:
    
+   art
    overview
 
 		

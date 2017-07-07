@@ -1,6 +1,6 @@
-========
-Overview
-========
+==========================================
+Laterally Primed Adaptive Resonance Theory
+==========================================
 
 The LAPART neural networks couple two Fuzzy ART algorithms to create a mechanism for making 
 predictions based on learned associations. The coupling of the two Fuzzy ARTs has a unique 
