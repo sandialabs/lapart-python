@@ -286,14 +286,13 @@ class train:
 				
 
 def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder='',update_templates=True):
-	
+
 	"""
-    
-    Parameters
-    ----------
-    xA : matrix
-    xB " maxtrix
-    """ 
+	Parameters
+	----------
+	xA : matrix
+	xB " maxtrix
+	""" 
 	
 	start_time = time.time()
 	
