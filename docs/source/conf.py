@@ -44,7 +44,7 @@ extensions = [
 
 viewcode_import = True
 numpydoc_show_class_members = True
-numpydoc_class_members_toctree = False
+numpydoc_class_members_toctree = True
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'
 numfig=True
