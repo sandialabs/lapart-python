@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &#8212; lapart-python 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Adaptive Resonance Theory" href="train.html" />
+    <link rel="prev" title="Adaptive Resonance Theory" href="art.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>The LAPART neural networks couple two Fuzzy ART algorithms to create a mechanism for making
+predictions based on learned associations. The coupling of the two Fuzzy ARTs has a unique
+stability that allows the system to converge rapidly towards a clear solution. Additionally,
+it can perform logical inference and supervised learning similar to fuzzy ARTMAP.</p>
+<div class="figure" id="id1">
+<span id="fig-lapart1"></span><a class="reference internal image-reference" href="_images/lapart1.png"><img alt="Sample-graphics" src="_images/lapart1.png" style="width: 630.0px; height: 333.75px;" /></a>
+<p class="caption"><span class="caption-text">LAPART training (shown on the left side) uses two Fuzzy ART (A&amp;B) algorithms connected by an associator matrix (L).
+During training inputs x:sub:&#8217;i&#8217;are applied to the A-Side while yi inputs are presented ot the B side.
+The algorithm then produces templates and an L matrix.  The testing processes (shown on the right side)
+has the same structure as the training but applies previously unseen testing data (xi) to the A-Side.
+The algorithm then produces outputs on the B-Side that are the prediction results.</span></p>
+</div>
+<div class="section" id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<p>The general layout of the LAPART algorithm includes two fuzzy ARTs, labeled as A and B, that
+are connected by an associator matrix referred to as L. These two Fuzzy ARTs are very similar
+to the algorithms described in Section 4.1.1. Each of them have an input layer, a recognition
+layer, and a categorization layer. Also, they both have a vigilance parameter ⇢A,⇢B respectively.
+The A and B algorithms are connected together by an inference mechanism so that the template
+connections are established during training and then used to provide predictions during testing.
+The flow of the algorithm is shown in Figure 4.10. During training, the system is able to learn
+through the presentation of input pattern pairs (IA{x1..xn} and IB{y1..yn}) applied to each
+Fuzzy ART network [48]. At the same time, interconnections between classes are formed in the L
+matrix. The interconnections between the A and B Fuzzy ART connect the learned categories and
+allow for predictions to be made in the testing phase when new data becomes available. During
+testing, as shown in Figure 4.11, previously unseen data are presented to the A side only.
+Categorization of the input patterns occurs in the A side which connects, through the L matrix,
+to a particular category on the B side. The particular B side category for the input pattern is
+then the prediction for the given A input.</p>
+<div class="figure" id="id2">
+<span id="fig-lapart2"></span><a class="reference internal image-reference" href="_images/lapart2.png"><img alt="Sample-graphics" src="_images/lapart2.png" style="width: 651.75px; height: 574.5px;" /></a>
+<p class="caption"><span class="caption-text">LAPART training algorithm flow diagram includes Fuzzy ART A &amp; B and two cases for learning A and B side templates.</span></p>
+</div>
+<div class="section" id="fuzzy-art-a">
+<h3>Fuzzy ART A<a class="headerlink" href="#fuzzy-art-a" title="Permalink to this headline">¶</a></h3>
+<p>The training process is initiated with the presentation of an input pattern into the Fuzzy
+ART A algorithm. Since no templates exist at the onset of the training the initial input
+becomes the first template on the A-side. Therefore, a new template or class would be created
+and based on Figure 4.12 decision block, “New A Class”, the algorithm implemented Case 1
+script. In this situation, the Fuzzy ART B operates as a normal ART algorithm. Since there
+are no B-Side templates, a new template was automatically created and a link between the A
+and B Fuzzy ARTs are established in the L matrix.</p>
+<p>The algorithm then starts over with a new input, and repeats until all of the inputs are
+considered. When the new input is presented to all of the existing templates, in the
+“A-Side Search” block, it searched for the top matches as determined by the choice function.
+Then the vigilance test is computed in the “A-Side Resonance” block to determine if
+resonance with an existing template occurs or not. If resonance does not occur then the
+next best template was considered until no choices were left. If a match is not found,
+then the script for Case 1 is implemented. If a match does occur, the script for Case 2 is used.</p>
+</div>
+<div class="section" id="case-1">
+<h3>Case 1<a class="headerlink" href="#case-1" title="Permalink to this headline">¶</a></h3>
+<p>The Case 1 code scenario occurs when a new A-side class was created and the Fuzzy ART B is
+allowed to operate as a normal ART algorithm. First, a new A-Side template is created. Then
+the B-Side input pattern is presented to the “B-Side Search” block where the choice function
+is used to discover the best template match. After the best match is found, the system tested
+the match to see if it met the vigilance parameter criteria in the “B-Side Resonance” block. If
+it did not, then a new template is created. If it did, then it updates an existing template.
+After the creation or update of a B-Side template, the inference matrix L was updated to link
+the newly created A-Side template to the B-Side template.</p>
+</div>
+<div class="section" id="case-2">
+<h3>Case 2<a class="headerlink" href="#case-2" title="Permalink to this headline">¶</a></h3>
+<p>In the event that resonance occurred in the Fuzzy ART A section of the code then Case 2 is
+implemented. First, the A-side template that resonated with the input pattern is not updated,
+but instead put on hold until further notice. Also, the match function is used to find the
+template that best matched the given input pattern. Then, if the chosen template passed the
+vigilance criteria, where the match function was greater than or equal to the B-side vigilance
+(⇢B), then the given A and B side templates are updated respectively. But, if it does not pass,
+then the system experiences a lateral reset and the initial A-side template is hidden and the
+process is repeated.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Overview</a><ul>
+<li><a class="reference internal" href="#architecture">Architecture</a><ul>
+<li><a class="reference internal" href="#fuzzy-art-a">Fuzzy ART A</a></li>
+<li><a class="reference internal" href="#case-1">Case 1</a></li>
+<li><a class="reference internal" href="#case-2">Case 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="art.html" title="previous chapter">Adaptive Resonance Theory</a></li>
+      <li>Next: <a href="train.html" title="next chapter">Adaptive Resonance Theory</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, C. Birk Jones.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
