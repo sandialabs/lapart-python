@@ -2,6 +2,6 @@
 Training Algorithm
 ==================
 
-:func:`~lapart.trial.d`
+:class:`~lapart.trial.d`
 
 

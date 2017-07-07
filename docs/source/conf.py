@@ -30,7 +30,25 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = [
+	'sphinx.ext.autodoc',
+	'sphinx.ext.doctest',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.intersphinx',
+]
+
+viewcode_import = True
+numpydoc_show_class_members = True
+numpydoc_class_members_toctree = False
+autodoc_member_order = 'bysource'
+autoclass_content = 'both'
+numfig=True
+numfig_format = {'figure':  'Figure %s', 'table': 'Table %s', 'code-block': 'Listing %s'}
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['ntemplates']
@@ -46,8 +64,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'lapart-python'
-copyright = u'2017, C. Birk Jones'
-author = u'C. Birk Jones'
+copyright = u'2017, Sandia National Laboratories'
+author = u'Sandia National Laboratories'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
