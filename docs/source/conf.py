@@ -18,6 +18,7 @@
 #
 import os
 import sys
+import numpy
 import shlex
 #sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('./lapart-python/lapart'))
