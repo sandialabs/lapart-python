@@ -1,6 +1,10 @@
 #from lapart import train
-from test import lapArt_test
+#from test import lapArt_test
 #from art import ART
+
+from lapart import train
+from lapart import test
+from lapart import art
 
 __version__ = '0.1.0'
 
