@@ -8,7 +8,7 @@ The supervised training algorithm used known inputs and outputs, and free parame
 create templates TA, TB, and L.
  
 
-.. automodule:: train
+.. automodule:: lapart.train
 	:members:
 
 
