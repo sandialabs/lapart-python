@@ -21,7 +21,7 @@ import sys
 import shlex
 #sys.path.insert(0, os.path.abspath('.'))
 #sys.path.insert(0, os.path.abspath('../'))
-sys.path.insert(0,'/Users/cbjones/Documents/ML Code/ANN/LAPART/lapart-python/lapart/')
+sys.path.insert(0,os.path.abspath('lapart-python/lapart/'))
 #sys.path.insert(0, os.path.abspath('lapart/'))
 
 # -- General configuration ------------------------------------------------
