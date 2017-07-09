@@ -18,13 +18,11 @@
 #
 import os
 import sys
-import shlex
 #sys.path.insert(0, os.path.abspath('.'))
 #sys.path.insert(0, os.path.abspath('../'))
 #sys.path.insert(0,os.path.abspath('lapart-python/lapart/'))
 #sys.path.insert(0, os.path.abspath('lapart/'))
 sys.path.append(os.path.abspath('/home/docs/checkouts/readthedocs.org/user_builds/lapart-python/checkouts/latest/lapart/'))
-
 
 # -- General configuration ------------------------------------------------
 
@@ -49,7 +47,7 @@ extensions = [
 autodoc_default_flags = ['members']
 autosummary_generate = True
 viewcode_import = True
-numpydoc_show_class_members = True
+numpydoc_show_class_members = False
 numpydoc_class_members_toctree = True
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'
