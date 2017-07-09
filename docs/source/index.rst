@@ -22,7 +22,7 @@ it can perform logical inference and supervised learning similar to fuzzy ARTMAP
 
 .. toctree::
    :maxdepth: 1
-   :caption: Architecture:
+   :caption: Overview:
    
    overview
    

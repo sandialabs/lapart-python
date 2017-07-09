@@ -10,5 +10,5 @@ that can be used for clustering of binary inputs only [15]. ART 2 improved upon 
 architecture to support continuous inputs [14]. Fuzzy ART, used in the present work, 
 incorporates fuzzy set theory into the pattern recognition process.
 
-.. automodule:: lapart.art
+.. automodule:: art
 	:members:
