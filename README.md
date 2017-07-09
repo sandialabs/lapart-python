@@ -21,4 +21,4 @@ TODO: Write history
 TODO: Write credits
 
 ## License
-Revised BSD.  See the license.txt file
+Revised BSD.  Click [here](http://lapart-python.readthedocs.io/en/latest/license.html)
