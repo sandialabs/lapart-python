@@ -4,6 +4,7 @@ Example: XOR
 
 The exclusive or (XOR) is a logical operation that outputs true when inputs differ.
 
+
 .. code:: python
 
     import numpy as np
@@ -29,9 +30,6 @@ The exclusive or (XOR) is a logical operation that outputs true when inputs diff
 
     xAtrain
 
-
-
-
 .. parsed-literal::
 
     array([[ 0. ,  0. ],
@@ -48,6 +46,35 @@ The exclusive or (XOR) is a logical operation that outputs true when inputs diff
 
 .. code:: python
 
+    xBtrain
+
+.. parsed-literal::
+
+    array([[ 0. ],
+           [ 1. ],
+           [ 1. ],
+           [ 0. ],
+           [ 0. ],
+           [ 0.1],
+           [ 0.8],
+           [ 0. ],
+           [ 0. ]])
+
+.. code:: python
+
+    xAtest
+
+.. parsed-literal::
+
+    array([[ 0.1 ,  0.9 ],
+           [ 1.  ,  0.  ],
+           [ 0.  ,  0.  ],
+           [ 1.  ,  1.  ],
+           [ 0.  ,  1.  ],
+           [ 0.15,  0.1 ]])
+
+.. code:: python
+
     rA,rB = 0.8,0.8
 
 .. code:: python
@@ -56,90 +83,18 @@ The exclusive or (XOR) is a logical operation that outputs true when inputs diff
 
 .. code:: python
 
-    TA
-
-
-
-
-.. raw:: html
-
-    <div>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>0.0</td>
-          <td>0.0</td>
-          <td>0.8</td>
-          <td>0.8</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>1.0</td>
-          <td>0.0</td>
-          <td>0.0</td>
-          <td>1.0</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>0.0</td>
-          <td>0.8</td>
-          <td>0.9</td>
-          <td>0.0</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>0.9</td>
-          <td>0.9</td>
-          <td>0.0</td>
-          <td>0.0</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-
+    C,T,Tn,df,t = test.lapArt_test(xAtest,rhoA=rA,rhoB=rB,memory_folder='templates') 
 
 .. code:: python
 
-    TB
+    C
 
+.. parsed-literal::
 
-
-
-.. raw:: html
-
-    <div>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>0</th>
-          <th>1</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>0.0</td>
-          <td>0.9</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>0.8</td>
-          <td>0.0</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
+    array([[ 1.],
+           [ 1.],
+           [ 0.],
+           [ 0.],
+           [ 1.],
+           [ 0.]])
 
