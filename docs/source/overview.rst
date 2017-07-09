@@ -1,23 +1,4 @@
-==========================================
-Laterally Primed Adaptive Resonance Theory
-==========================================
-
-The LAPART neural networks couple two Fuzzy ART algorithms to create a mechanism for making 
-predictions based on learned associations. The coupling of the two Fuzzy ARTs has a unique 
-stability that allows the system to converge rapidly towards a clear solution. Additionally, 
-it can perform logical inference and supervised learning similar to fuzzy ARTMAP.
-
-.. _fig-lapart1:
-.. figure:: figures/lapart1.png
-   :scale: 75 %
-   :alt: Sample-graphics
-   
-   LAPART training (shown on the left side) uses two Fuzzy ART (A&B) algorithms connected by an associator matrix (L).
-   During training inputs x\ :sub:'i'\ are applied to the A-Side while yi inputs are presented ot the B side.
-   The algorithm then produces templates and an L matrix.  The testing processes (shown on the right side) 
-   has the same structure as the training but applies previously unseen testing data (xi) to the A-Side.
-   The algorithm then produces outputs on the B-Side that are the prediction results.
-   
+============
 Architecture
 ============
 The general layout of the LAPART algorithm includes two fuzzy ARTs, labeled as A and B, that 
