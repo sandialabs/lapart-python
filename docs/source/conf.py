@@ -19,10 +19,12 @@
 import os
 import sys
 import shlex
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../'))
+#sys.path.insert(0, os.path.abspath('.'))
+#sys.path.insert(0, os.path.abspath('../'))
 #sys.path.insert(0,os.path.abspath('lapart-python/lapart/'))
 #sys.path.insert(0, os.path.abspath('lapart/'))
+sys.path.append(os.path.abspath('/home/docs/checkouts/readthedocs.org/user_builds/lapart-python/checkouts/latest/lapart/'))
+
 
 # -- General configuration ------------------------------------------------
 
