@@ -3,13 +3,18 @@ lapart-python documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Overview:
+   
+   overview
+   license
+   
+.. toctree::
+   :maxdepth: 2
+   :caption: Code:
    
    art
-   overview
    train
    test
-   license
 
 		
 

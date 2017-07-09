@@ -2,5 +2,5 @@
 Testing Algorithm
 =================
 
-.. automodule:: lapart.test
+.. automodule:: test
 	:members:
