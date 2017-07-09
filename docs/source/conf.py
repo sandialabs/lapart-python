@@ -42,7 +42,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.bibtex',
 ]
 
 autodoc_default_flags = ['members']
