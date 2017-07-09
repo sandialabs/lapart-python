@@ -1,5 +1,5 @@
 # lapart-python
-TODO: Write a project description
+See documentation [here](http://lapart-python.readthedocs.io/en/latest)
 
 ## Installation
 TODO: Describe the installation process
