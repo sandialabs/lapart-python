@@ -13,7 +13,7 @@ it can perform logical inference and supervised learning similar to fuzzy ARTMAP
    :alt: Sample-graphics
    
    LAPART training (shown on the left side) uses two Fuzzy ART (A&B) algorithms connected by an associator matrix (L).
-   During training inputs x\ :sub:'i'\ are applied to the A-Side while yi inputs are presented ot the B side.
+   During training inputs xi are applied to the A-Side while yi inputs are presented ot the B side.
    The algorithm then produces templates and an L matrix.  The testing processes (shown on the right side) 
    has the same structure as the training but applies previously unseen testing data (xi) to the A-Side.
    The algorithm then produces outputs on the B-Side that are the prediction results.
