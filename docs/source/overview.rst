@@ -2,17 +2,16 @@
 Architecture
 ============
 The general layout of the LAPART algorithm includes two fuzzy ARTs, labeled as A and B, that 
-are connected by an associator matrix referred to as L. These two Fuzzy ARTs are very similar 
-to the algorithms described in Section 4.1.1. Each of them have an input layer, a recognition 
-layer, and a categorization layer. Also, they both have a vigilance parameter ⇢A,⇢B respectively. 
+are connected by an associator matrix referred to as L. Each of them have an input layer, a recognition 
+layer, and a categorization layer. Also, they both have a vigilance parameter rhoA, rhoB respectively. 
 The A and B algorithms are connected together by an inference mechanism so that the template 
 connections are established during training and then used to provide predictions during testing. 
-The flow of the algorithm is shown in Figure 4.10. During training, the system is able to learn 
+The flow of the algorithm is shown in the Figure below. During training, the system is able to learn 
 through the presentation of input pattern pairs (IA{x1..xn} and IB{y1..yn}) applied to each 
-Fuzzy ART network [48]. At the same time, interconnections between classes are formed in the L 
+Fuzzy ART network. At the same time, interconnections between classes are formed in the L 
 matrix. The interconnections between the A and B Fuzzy ART connect the learned categories and 
 allow for predictions to be made in the testing phase when new data becomes available. During 
-testing, as shown in Figure 4.11, previously unseen data are presented to the A side only. 
+testing previously unseen data are presented to the A side only. 
 Categorization of the input patterns occurs in the A side which connects, through the L matrix, 
 to a particular category on the B side. The particular B side category for the input pattern is 
 then the prediction for the given A input.
@@ -30,8 +29,8 @@ Fuzzy ART A
 The training process is initiated with the presentation of an input pattern into the Fuzzy 
 ART A algorithm. Since no templates exist at the onset of the training the initial input 
 becomes the first template on the A-side. Therefore, a new template or class would be created 
-and based on Figure 4.12 decision block, “New A Class”, the algorithm implemented Case 1 
-script. In this situation, the Fuzzy ART B operates as a normal ART algorithm. Since there 
+using the “New A Class” block shown in the figure above. In this situation, the Fuzzy ART 
+B operates as a normal ART algorithm. Since there 
 are no B-Side templates, a new template was automatically created and a link between the A 
 and B Fuzzy ARTs are established in the L matrix.
 
@@ -61,6 +60,6 @@ implemented. First, the A-side template that resonated with the input pattern is
 but instead put on hold until further notice. Also, the match function is used to find the 
 template that best matched the given input pattern. Then, if the chosen template passed the 
 vigilance criteria, where the match function was greater than or equal to the B-side vigilance 
-(⇢B), then the given A and B side templates are updated respectively. But, if it does not pass, 
+(rhoB), then the given A and B side templates are updated respectively. But, if it does not pass, 
 then the system experiences a lateral reset and the initial A-side template is hidden and the 
 process is repeated.
