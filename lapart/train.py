@@ -12,9 +12,9 @@ import pandas as pd
 from art import ART
 
 def norm(data,ma,mi):
-
 	tnorm = np.ones((len(data),len(data[0])))
 	for i in range(len(data)):
+		
 		for j in range(len(data[0])):
 			tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
 	return tnorm
@@ -28,7 +28,7 @@ def dnorm(data,ma,mi):
 
 class train:
 
-	def __init__(self,xA,xB,rhoA,rhoB,beta,alpha,nep,TA,TB,L,memory_folder,update_templates):
+	def __init__(self,xA,xB,rhoA,rhoB,beta,alpha,nep,TA,TB,L,memory_folder,update_templates,normalize_data):
 	
 		''' Update Existing Templates '''
 		self.update = update_templates
@@ -40,55 +40,42 @@ class train:
 		self.beta = beta
 		self.alpha = alpha
 		self.nep = nep
-		
-		''' Min and Max of Input Data '''
-		if self.update == False:
-			self.maxA,self.minA = np.array([xA.max(axis=0)]).T,np.array([xA.min(axis=0)]).T
-			self.maxB,self.minB = np.array([xB.max(axis=0)]).T,np.array([xB.min(axis=0)]).T
-			
-			self.maxA = self.maxA #+ self.maxA * 0.3 
-			self.maxB = self.maxB #+ self.maxB * 0.3
-			
-			self.minA = self.minA 
-			self.minB = self.minB 
-			
-			mA,mB = np.hstack([self.maxA,self.minA]),np.hstack([self.maxB,self.minB])
-			dfmA,dfmB = pd.DataFrame(mA,columns=[['max','min']]),pd.DataFrame(mB,columns=[['max','min']])
-			dfmA.to_csv('%s/maxminA.csv'%self.folder)
-			dfmB.to_csv('%s/maxminB.csv'%self.folder)
-		else:
+				
+		if normalize_data:
 			maxminA = pd.read_csv('%s/maxminA.csv'%self.folder).as_matrix()
 			maxminB = pd.read_csv('%s/maxminB.csv'%self.folder).as_matrix()
-			past_maxA,past_minA = maxminA[:,1:2],maxminA[:,2:3]
-			past_maxB,past_minB = maxminB[:,1:2],maxminB[:,2:3]
+			self.maxA,self.minA = maxminA[:,1:2],maxminA[:,2:3]
+			self.maxB,self.minB = maxminB[:,1:2],maxminB[:,2:3]
+		
+			''' Normalize Input Data '''
+			self.xAn = norm(xA,self.maxA,self.minA)
+			self.xBn = norm(xB,self.maxB,self.minB)
+		else:
+			self.xAn = xA
+			self.xBn = xB
 
-			current_maxA,current_minA = np.array([xA.max(axis=0)]).T,np.array([xA.min(axis=0)]).T
-			current_maxB,current_minB = np.array([xB.max(axis=0)]).T,np.array([xB.min(axis=0)]).T
-			mmA = np.hstack([past_maxA,current_maxA,past_minA,current_minA]).T
-			mmB = np.hstack([past_maxB,current_maxB,past_minB,current_minB]).T
-			
-			self.maxA,self.minA = np.array([mmA.max(axis=0)]).T,np.array([mmA.min(axis=0)]).T
-			self.maxB,self.minB = np.array([mmB.max(axis=0)]).T,np.array([mmB.min(axis=0)]).T	
-		
-		''' Normalize Input Data '''
-		self.xAn,self.xBn = norm(xA,self.maxA,self.minA),norm(xB,self.maxB,self.minB)
-		
 		''' Complement Code Data '''
 		self.IA = np.transpose(np.hstack([self.xAn, 1-self.xAn]))
 		self.IB = np.transpose(np.hstack([self.xBn, 1-self.xBn]))
 		self.nAB = len(self.IA[0])
-		
-		if self.update == False:		
-			self.TA = np.ones((len(self.IA),1))
-			self.TB = np.ones((len(self.IB),1))
-			self.L = np.zeros((len(self.IA[0]),len(self.IB[0])))
-		else:
+
+		if self.update:		
 			self.ncA_old = len(TA)
 			self.ncB_old = len(TB)
+			self.TA = TA.T	
+			self.TB = TB.T 
+			#self.L = np.append(np.append(L,np.zeros((len(L),112)),1),np.zeros((8,len(np.append(L,np.zeros((len(L),112)),1)[0]))),0)
 			
-			self.TA = TA.T	#np.append(TA.T,np.ones((len(TA[0]),8)),1)
-			self.TB = TB.T 	#np.append(TB.T,np.ones((len(TB[0]),8)),1)
-			self.L = np.append(np.append(L,np.zeros((len(L),8)),1),np.zeros((8,len(np.append(L,np.zeros((len(L),8)),1)[0]))),0)
+			# Append X Direction
+			xd = np.zeros((len(L),64))
+			L1 = np.concatenate((L,xd),axis=1)
+			# Append Y Direction
+			yd = np.zeros((64,len(L1[0])))
+			self.L = np.concatenate((L1,yd),axis=0)
+		else:
+			self.TA = np.ones((len(self.IA),1))
+			self.TB = np.ones((len(self.IB),1))
+			self.L = np.zeros((len(self.IA[0]),len(self.IB[0])))	
 
 		self.minA = np.ones((len(xA[0])*2,1))
 		self.chAm = np.zeros((len(xA)*10,1))
@@ -100,18 +87,12 @@ class train:
 
 	def lrBfailed(self,IB,TB,L,cmax,j,ch,nc):
 		if self.mB[ch] >= self.rhoB:
-			'''
-            Update B-Side Category
-            Update L  
-            '''
+			'''Update B-Side Category & Update L  '''
 			TB = self.UpdateTemplate(IB, TB, cmax, j, ch)
 			L[self.ncA-1, ch] = 1 
 			
 		else:
-			'''
-            Create new B-Side Category
-            Update L
-            '''
+			'''Create new B-Side Category & Update L '''
 			self.ncB += 1
 			TB = self.CreateTemplate(IB,TB,nc,j)
 			L[self.ncA-1, self.ncB-1] = 1
@@ -195,7 +176,6 @@ class train:
 					Present B-Side input and Prime B-Side
 					Prime = B-Side must consider template associated with A-Side Template
 					'''
-
 					cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
 					
 					if cmaxB == -1:
@@ -234,9 +214,8 @@ class train:
 												'''
 												self.ncA += 1
 												self.TA = self.CreateTemplate(self.IA,self.TA,self.ncA,j)
-												#cmaxB, chB = self.ArtB(self.IB,self.TB,j)
-												cmaxB, chB = self.ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,j)
-												L,TB = self.lrBfailed(self.IB,self.TB,self.L,cmaxB,j,chB,self.ncB)
+												cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)	
+												self.L,self.TB = self.lrBfailed(self.IB,self.TB,self.L,cmaxB,j,chB,self.ncB)
 												lr = 0
 											else:
 												lr = 0
@@ -250,14 +229,12 @@ class train:
 								
 								self.TA = self.CreateTemplate(self.IA,self.TA,self.ncA,j)
 								cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
-								#cmaxB,chB = self.ArtB(self.IB,self.TB,j)	
-								
 								if cmaxB == -1:
 									self.ncB += 1
 									self.TB = self.CreateTemplate(self.IB,self.TB,self.ncB,j)
 									self.L[self.ncA-1,self.ncB-1] = 1
 								else:
-									self.TB = self.UpdateTemplate(self.IB,self.TB,cmaxB,j,chB)	
+									self.TB = self.UpdateTemplate(self.IB,self.TB,cmaxB,j,chB)
 									self.L[self.ncA-1,chB] = 1
 									
 								lr = 0
@@ -270,14 +247,14 @@ class train:
 						self.TB = self.UpdateTemplate(self.IB,self.TB,cmaxB,j,chB)
 						
 	
-			L = self.L[:self.ncA,:self.ncB]
+		L = self.L[:self.ncA,:self.ncB]
         	TA = np.transpose(self.TA[:,:self.ncA])
         	TB = np.transpose(self.TB[:,:self.ncB])     	
         	
         	return TA,TB,L		
 				
 
-def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder='',update_templates=True):
+def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder='',update_templates=True,normalize_data=True):
 
 	"""
 	Train LAPART Algorithm
@@ -300,14 +277,14 @@ def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_fo
 
 	
 	start_time = time.time()
-	
-	if update_templates == True:
+
+	if update_templates:
 		TA,TB,L = pd.read_csv('%s/TA.csv'%memory_folder).as_matrix(),pd.read_csv('%s/TB.csv'%memory_folder).as_matrix(),pd.read_csv('%s/L.csv'%memory_folder).as_matrix()
 		TA,TB,L = TA[:,1:],TB[:,1:],L[:,1:] 
 	else:
 		TA,TB,L = [],[],[]	
 	
-	ann = train(xA,xB,rhoA,rhoB,beta,alpha,nep,TA,TB,L,memory_folder,update_templates)
+	ann = train(xA,xB,rhoA,rhoB,beta,alpha,nep,TA,TB,L,memory_folder,update_templates,normalize_data)
 	TA,TB,L = ann.lapart_train(xA,xB)
 	
 	TA,TB,L = pd.DataFrame(TA),pd.DataFrame(TB),pd.DataFrame(L)
