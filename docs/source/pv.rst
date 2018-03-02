@@ -77,7 +77,7 @@ Example: Solar PV
 
 
 
-.. image:: output_11_0.png
+.. image:: figures/output_11_0.png
 
 
 .. code:: python
@@ -101,5 +101,5 @@ Example: Solar PV
 
 
 
-.. image:: output_12_0.png
+.. image:: figures/output_12_0.png
 
