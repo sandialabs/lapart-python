@@ -60,7 +60,6 @@ Example: Solar PV
 
 .. code:: python
 
-    #fig = plt.figure(figsize=(20, 10))
     fig, (ax1) = plt.subplots(1,1,figsize=(20, 10))
     ax1.plot(dftest['low'],color='grey')
     ax1.plot(dftest['high'],color='grey')
