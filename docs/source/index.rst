@@ -31,7 +31,8 @@ it can perform logical inference and supervised learning similar to fuzzy ARTMAP
    :maxdepth: 1
    :caption: Examples:
    
-   xor  
+   xor 
+   pv 
    
 .. toctree::
    :maxdepth: 1
