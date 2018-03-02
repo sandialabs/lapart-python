@@ -1,3 +1,6 @@
+=================
+Example: Solar PV
+=================
 
 .. code:: python
 
