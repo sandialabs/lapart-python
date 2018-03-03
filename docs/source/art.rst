@@ -10,7 +10,7 @@ that can be used for clustering of binary inputs only. ART 2 improved upon the A
 architecture to support continuous inputs. Fuzzy ART, used in the present work, 
 incorporates fuzzy set theory into the pattern recognition process.
 
-The stand alone ART algorithm is available in Python 
+The stand alone ART algorithm is available in Python at https://github.com/cbirkj/art-python. 
 
 .. automodule:: art
 	:members:
