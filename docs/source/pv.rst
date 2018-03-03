@@ -1,8 +1,7 @@
 =================
 Example: Solar PV
 =================
-The LAPART algorithm has been used in solar photovoltaic (PV) applications 
-(http://ieeexplore.ieee.org/document/7355834/).
+The LAPART algorithm has been used in solar photovoltaic (PV) applications: (http://ieeexplore.ieee.org/document/7355834/).  
 
 .. code:: python
 
