@@ -6,15 +6,11 @@ Fuzzy ART is a ANN architecture that can learn without forgetting. It is similar
 memory where people can recognize their parents even if they have not seen them in a while 
 and have learned many new faces since. The theory was developed by Grossberg and Carpenter 
 and includes various types such as ART 1, ART 2, ART 3, and Fuzzy ART. ART 1 is an architecture 
-that can be used for clustering of binary inputs only [15]. ART 2 improved upon the ART 1 
-architecture to support continuous inputs :cite:`carpenter_art_1987` [14]. Fuzzy ART, used in the present work, 
+that can be used for clustering of binary inputs only. ART 2 improved upon the ART 1 
+architecture to support continuous inputs. Fuzzy ART, used in the present work, 
 incorporates fuzzy set theory into the pattern recognition process.
+
+The stand alone ART algorithm is available in Python 
 
 .. automodule:: art
 	:members:
-
-
-.. rubric:: References
-
-.. bibliography:: lapart.bib
-   :cited:
