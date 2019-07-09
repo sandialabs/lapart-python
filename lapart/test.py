@@ -39,13 +39,18 @@ class test:
 		self.folder = memory_folder
 		
 		''' Min and Max of Input Data '''
-		maxminA = pd.read_csv('%s/maxminA.csv'%self.folder).as_matrix()
+		maxminA = pd.read_csv('%s/maxminA.csv'%self.folder).values
 		past_maxA,past_minA = maxminA[:,1:2],maxminA[:,2:3]
-		current_maxA,current_minA = np.array([xA.max(axis=0)]).T,np.array([xA.min(axis=0)]).T
-		mmA = np.hstack([past_maxA,current_maxA,past_minA,current_minA]).T
+		
+		if len(xA) > 1:
+			current_maxA,current_minA = np.array([xA.max(axis=0)]).T,np.array([xA.min(axis=0)]).T
+		else:
+			current_maxA,current_minA = xA.T,xA.T
+		
+		mmA = np.hstack([past_maxA,current_maxA,past_minA,current_minA]).T	
 		self.maxA,self.minA = np.array([mmA.max(axis=0)]).T,np.array([mmA.min(axis=0)]).T
 		
-		maxminB = pd.read_csv('%s/maxminB.csv'%self.folder).as_matrix()
+		maxminB = pd.read_csv('%s/maxminB.csv'%self.folder).values
 		self.maxB,self.minB = maxminB[:,1:2],maxminB[:,2:3]
 		
 		''' Normalize Input Data '''
@@ -63,8 +68,8 @@ class test:
 		self.ncA = len(TA)
 		
 		self.minAm = np.ones((len(xA[0])*2,1))
-		self.chAm = np.zeros((len(xA)*10,1))
-		self.mA = np.zeros((len(xA)*10,1))
+		self.chAm = np.zeros((len(TA)*10,1))
+		self.mA = np.zeros((len(TA)*10,1))
 		
 		self.CA = np.zeros((len(xA)*2,1))
 		self.CB = np.zeros((len(xA)*2,1))
@@ -139,9 +144,11 @@ def lapArt_test(xA,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder
 
 	start_time = time.time()
 
-	TA,TB = pd.read_csv('%s/TA.csv'%memory_folder).as_matrix(),pd.read_csv('%s/TB.csv'%memory_folder).as_matrix()
-	L = pd.read_csv('%s/L.csv'%memory_folder).as_matrix()
+	TA,TB = pd.read_csv('%s/TA.csv'%memory_folder).values,pd.read_csv('%s/TB.csv'%memory_folder).values
+	L = pd.read_csv('%s/L.csv'%memory_folder).values
 	TA,TB,L = TA[:,1:],TB[:,1:],L[:,1:]
+	
+	print(xA)
 	
 	ann = test(xA,TA,TB,L,rhoA,rhoB,beta,alpha,nep,memory_folder)
 	CA,CB,TB,TBn,IA = ann.lapart_test(xA)

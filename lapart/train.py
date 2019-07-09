@@ -14,7 +14,6 @@ from art import ART
 def norm(data,ma,mi):
 	tnorm = np.ones((len(data),len(data[0])))
 	for i in range(len(data)):
-		
 		for j in range(len(data[0])):
 			tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
 	return tnorm
@@ -42,8 +41,8 @@ class train:
 		self.nep = nep
 				
 		if normalize_data:
-			maxminA = pd.read_csv('%s/maxminA.csv'%self.folder).as_matrix()
-			maxminB = pd.read_csv('%s/maxminB.csv'%self.folder).as_matrix()
+			maxminA = pd.read_csv('%s/maxminA.csv'%self.folder).values #as_matrix()
+			maxminB = pd.read_csv('%s/maxminB.csv'%self.folder).values #as_matrix()
 			self.maxA,self.minA = maxminA[:,1:2],maxminA[:,2:3]
 			self.maxB,self.minB = maxminB[:,1:2],maxminB[:,2:3]
 		
@@ -247,11 +246,10 @@ class train:
 						self.TB = self.UpdateTemplate(self.IB,self.TB,cmaxB,j,chB)
 						
 	
-		L = self.L[:self.ncA,:self.ncB]
-        	TA = np.transpose(self.TA[:,:self.ncA])
-        	TB = np.transpose(self.TB[:,:self.ncB])     	
-        	
-        	return TA,TB,L		
+			L = self.L[:self.ncA,:self.ncB]
+			TA = np.transpose(self.TA[:,:self.ncA])
+			TB = np.transpose(self.TB[:,:self.ncB]) 
+			return TA,TB,L		
 				
 
 def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder='',update_templates=True,normalize_data=True):
@@ -279,19 +277,21 @@ def lapArt_train(xA,xB,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_fo
 	start_time = time.time()
 
 	if update_templates:
-		TA,TB,L = pd.read_csv('%s/TA.csv'%memory_folder).as_matrix(),pd.read_csv('%s/TB.csv'%memory_folder).as_matrix(),pd.read_csv('%s/L.csv'%memory_folder).as_matrix()
+		TA,TB,L = pd.read_csv('%s/TA.csv'%memory_folder).values,pd.read_csv('%s/TB.csv'%memory_folder).values,pd.read_csv('%s/L.csv'%memory_folder).values
 		TA,TB,L = TA[:,1:],TB[:,1:],L[:,1:] 
 	else:
 		TA,TB,L = [],[],[]	
-	
+
 	ann = train(xA,xB,rhoA,rhoB,beta,alpha,nep,TA,TB,L,memory_folder,update_templates,normalize_data)
 	TA,TB,L = ann.lapart_train(xA,xB)
 	
+
 	TA,TB,L = pd.DataFrame(TA),pd.DataFrame(TB),pd.DataFrame(L)
 	TA.to_csv('%s/TA.csv'%memory_folder)
 	TB.to_csv('%s/TB.csv'%memory_folder)
 	L.to_csv('%s/L.csv'%memory_folder)
-
+	
 	elapsed_time = time.time() - start_time
+	
 	
 	return TA,TB,L,elapsed_time
