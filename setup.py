@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from distutils.core import Extension
 
 DISTNAME = 'lapart-python'
-VERSION = '0.1.5'
+VERSION = '0.1.6'
 PACKAGES = ['lapart']
 EXTENSIONS = []
 DESCRIPTION = 'Python package for performance monitoring of time series data.'
