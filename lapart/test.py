@@ -9,7 +9,11 @@ import time
 import math
 import numpy as np
 import pandas as pd
-from art import ART
+
+import sys
+sys.path.append('/Users/cbjones/Documents/Projects/ml-development/lapart-python')
+#from art import ART
+from lapart import art
 
 def norm(data,ma,mi):
 	tnorm = np.ones((len(data),len(data[0])))
@@ -83,7 +87,7 @@ class test:
 			for j in range(0,self.nAB):
 
 				''' Present Inputs to A Side Templates '''
-				cmax,ch = ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minAm,self.rhoA,self.beta,j)
+				cmax,ch = art.ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minAm,self.rhoA,self.beta,j)
 				
 				if cmax == -1:
 					''' A Templates do not resonate '''
@@ -147,9 +151,7 @@ def lapArt_test(xA,rhoA=0.9,rhoB=0.9,beta=0.000001,alpha=1.0,nep=1,memory_folder
 	TA,TB = pd.read_csv('%s/TA.csv'%memory_folder).values,pd.read_csv('%s/TB.csv'%memory_folder).values
 	L = pd.read_csv('%s/L.csv'%memory_folder).values
 	TA,TB,L = TA[:,1:],TB[:,1:],L[:,1:]
-	
-	print(xA)
-	
+
 	ann = test(xA,TA,TB,L,rhoA,rhoB,beta,alpha,nep,memory_folder)
 	CA,CB,TB,TBn,IA = ann.lapart_test(xA)
 	df = pd.DataFrame(np.hstack([CA,CB,IA]))
