@@ -10,9 +10,7 @@ import math
 import numpy as np
 import pandas as pd
 
-import sys
-sys.path.append('/Users/cbjones/Documents/Projects/ml-development/lapart-python')
-#from art import ART
+
 from lapart import art
 
 def norm(data,ma,mi):
