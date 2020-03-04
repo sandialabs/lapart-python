@@ -10,12 +10,7 @@ import math
 import numpy as np
 import pandas as pd
 
-<<<<<<< HEAD
 from .art import ART
-=======
-
-from lapart import art
->>>>>>> 6b35226651aa8b96c639cbefdbd644f985e7f011
 
 def norm(data,ma,mi):
 	tnorm = np.ones((len(data),len(data[0])))
@@ -23,13 +18,13 @@ def norm(data,ma,mi):
 		for j in range(len(data[0])):
 			tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
 	return tnorm
-    
+
 def dnorm(data,ma,mi):
-    dnorm = np.ones((len(data),len(data[0])))
-    for i in range(len(data)):
-        for j in range(len(data[0])):
-            dnorm[i,j] = (data[i,j]*(ma[j]-mi[j]))+mi[j]
-    return dnorm
+	dnorm = np.ones((len(data),len(data[0])))
+	for i in range(len(data)):
+		for j in range(len(data[0])):
+			dnorm[i,j] = (data[i,j]*(ma[j]-mi[j]))+mi[j]
+	return dnorm
 
 class test:
 
@@ -89,7 +84,7 @@ class test:
 			for j in range(0,self.nAB):
 
 				''' Present Inputs to A Side Templates '''
-				cmax,ch = art.ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minAm,self.rhoA,self.beta,j)
+				cmax,ch = ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minAm,self.rhoA,self.beta,j)
 				
 				if cmax == -1:
 					''' A Templates do not resonate '''
