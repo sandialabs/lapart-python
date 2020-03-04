@@ -10,12 +10,7 @@ import math
 import numpy as np
 import pandas as pd
 
-<<<<<<< HEAD
 from .art import ART
-=======
-
-from lapart import art
->>>>>>> 6b35226651aa8b96c639cbefdbd644f985e7f011
 
 def norm(data,ma,mi):
 	
