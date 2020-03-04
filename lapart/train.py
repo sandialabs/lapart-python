@@ -9,7 +9,8 @@ import time
 import math
 import numpy as np
 import pandas as pd
-from art import ART
+
+from .art import ART
 
 def norm(data,ma,mi):
 	tnorm = np.ones((len(data),len(data[0])))
