@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 
 def match_choice(c,norm,normI,normT,m,chm,rho,beta):
-	
-	"""
-    Checks match criterion
-    Compute choice equation
-    Discovers best choice
 
-    :param norm: minimum of input and templates
-    :param normI: norm of input
-        
-    :return: returns category choice location
-    """
-        
-    #m = np.zeros((len(self.IA)*10,1))
+	"""
+	Checks match criterion
+	Compute choice equation
+	Discovers best choice
+
+	:param norm: minimum of input and templates
+	:param normI: norm of input
+
+	:return: returns category choice location
+	"""
+
 	m[c] = norm/normI
 	if m[c] < rho:
 		chm[c] = 0
@@ -23,17 +22,16 @@ def match_choice(c,norm,normI,normT,m,chm,rho,beta):
 	return chm.argmax(axis=0)
 		
 def template_options_loop(cmax,chmax,ch,nc,m,chm,rho):
-		
+
 	"""
 	Match Criterion
-		
+
 	:param cmax:	Maximum choice (initialized to be -1)
 	:param chmax:	Match Criterion (initialized to be -1)
 	:param ch:		Template choice
 	:param nc:		Number of Categories	
-		
-	:return cmax:	Maximum choice template location		
-		
+
+	:return cmax:	Maximum choice template location
 	"""
 
 	neg = 0
