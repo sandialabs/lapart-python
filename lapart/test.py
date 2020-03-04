@@ -10,7 +10,12 @@ import math
 import numpy as np
 import pandas as pd
 
+<<<<<<< HEAD
 from .art import ART
+=======
+
+from lapart import art
+>>>>>>> 6b35226651aa8b96c639cbefdbd644f985e7f011
 
 def norm(data,ma,mi):
 	tnorm = np.ones((len(data),len(data[0])))
@@ -84,7 +89,7 @@ class test:
 			for j in range(0,self.nAB):
 
 				''' Present Inputs to A Side Templates '''
-				cmax,ch = ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minAm,self.rhoA,self.beta,j)
+				cmax,ch = art.ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minAm,self.rhoA,self.beta,j)
 				
 				if cmax == -1:
 					''' A Templates do not resonate '''

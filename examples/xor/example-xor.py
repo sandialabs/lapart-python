@@ -12,4 +12,4 @@ rA,rB = 0.8,0.8
 
 TA,TB,L,t = train.lapArt_train(xAtrain,xBtrain,rhoA=rA,rhoB=rB,memory_folder='templates',update_templates=False) 
 C,T,Tn,df,t = test.lapArt_test(xAtest,rhoA=rA,rhoB=rB,memory_folder='templates') 
-print df
+print(df)

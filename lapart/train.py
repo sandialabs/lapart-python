@@ -10,13 +10,29 @@ import math
 import numpy as np
 import pandas as pd
 
+<<<<<<< HEAD
 from .art import ART
+=======
+
+from lapart import art
+>>>>>>> 6b35226651aa8b96c639cbefdbd644f985e7f011
 
 def norm(data,ma,mi):
-	tnorm = np.ones((len(data),len(data[0])))
-	for i in range(len(data)):
-		for j in range(len(data[0])):
-			tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
+	
+	#'''
+	#tnorm = np.ones((len(data),len(data[0])))
+	#for i in range(len(data)):
+	#	for j in range(len(data[0])):
+	#		print(data[i,j])
+	#		tnorm[i,j] = (data[i,j]-mi[j])/(ma[j] - mi[j])
+	#'''
+	# TODO: Improve normalization 
+	
+	tnorm = np.ones((len(data),1))
+	for i in range(len(data[0])):
+		tn = (data[:,i]-mi[i])/(ma[i]-mi[i])
+		tnorm = np.hstack([tnorm,np.array([tn]).T])
+	
 	return tnorm
     
 def dnorm(data,ma,mi):
@@ -77,6 +93,7 @@ class train:
 			self.TB = np.ones((len(self.IB),1))
 			self.L = np.zeros((len(self.IA[0]),len(self.IB[0])))	
 
+		print(len(xA[0])*2)
 		self.minA = np.ones((len(xA[0])*2,1))
 		self.chAm = np.zeros((len(xA)*10,1))
 		self.mA = np.zeros((len(xA)*10,1))
@@ -143,7 +160,7 @@ class train:
 		for ep in range(self.nep):
 			for j in range(self.nAB):
 			
-				cmaxA, chA = ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minA,self.rhoA,self.beta,j)
+				cmaxA, chA = art.ART(self.IA,self.TA,self.mA,self.chAm,self.ncA,self.minA,self.rhoA,self.beta,j)
 				
 				if cmaxA == -1:
 					
@@ -155,7 +172,7 @@ class train:
 					
 					self.ncA += 1
 					self.TA = self.CreateTemplate(self.IA,self.TA,self.ncA,j)
-					cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
+					cmaxB, chB = art.ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
 					
 					if cmaxB == -1:
 						self.ncB += 1
@@ -176,7 +193,7 @@ class train:
 					Present B-Side input and Prime B-Side
 					Prime = B-Side must consider template associated with A-Side Template
 					'''
-					cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
+					cmaxB, chB = art.ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
 					
 					if cmaxB == -1:
 						'''
@@ -214,7 +231,7 @@ class train:
 												'''
 												self.ncA += 1
 												self.TA = self.CreateTemplate(self.IA,self.TA,self.ncA,j)
-												cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)	
+												cmaxB, chB = art.ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)	
 												self.L,self.TB = self.lrBfailed(self.IB,self.TB,self.L,cmaxB,j,chB,self.ncB)
 												lr = 0
 											else:
@@ -228,7 +245,7 @@ class train:
 								self.ncA += 1
 								
 								self.TA = self.CreateTemplate(self.IA,self.TA,self.ncA,j)
-								cmaxB, chB = ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
+								cmaxB, chB = art.ART(self.IB,self.TB,self.mB,self.chBm,self.ncB,self.minB,self.rhoB,self.beta,j)
 								if cmaxB == -1:
 									self.ncB += 1
 									self.TB = self.CreateTemplate(self.IB,self.TB,self.ncB,j)
